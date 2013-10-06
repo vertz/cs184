@@ -22,14 +22,14 @@ mat3 Transform::rotate(const float degrees, const vec3& axis)
 
   // axis * axis^t * (1 - cos(angle))
   mat3 m2 = mat3(x*x, x*y, x*z,
-				 x*y, y*y, y*z,
-				 x*z, y*z, z*z);
+		 x*y, y*y, y*z,
+		 x*z, y*z, z*z);
   m2 = glm::transpose(m2) * (1 - cos(angle));
 
   // A* sin(angle) 
   mat3 m3 = mat3( 0, -z,  y,
-				  z,  0, -x,
-				 -y,  x,  0);
+		  z,  0, -x,
+		 -y,  x,  0);
   m3 = glm::transpose(m3) * sin(angle);
 
   return (m1 + m2 + m3);
@@ -62,15 +62,15 @@ mat4 Transform::lookAt(vec3 eye, vec3 up)
   vec3 v = glm::cross(w, u);
 
   mat4 R = mat4(u.x, u.y, u.z, 0.0,
-				v.x, v.y, v.z, 0.0,
-				w.x, w.y, w.z, 0.0,
-				0.0, 0.0, 0.0, 1.0);
+		v.x, v.y, v.z, 0.0,
+		w.x, w.y, w.z, 0.0,
+		0.0, 0.0, 0.0, 1.0);
   R = glm::transpose(R);
 
   mat4 T = mat4(1.0, 0.0, 0.0, -eye.x,
-				0.0, 1.0, 0.0, -eye.y,
-				0.0, 0.0, 1.0, -eye.z,
-				0.0, 0.0, 0.0,   1.0 );
+		0.0, 1.0, 0.0, -eye.y,
+		0.0, 0.0, 1.0, -eye.z,
+		0.0, 0.0, 0.0,   1.0 );
   T = glm::transpose(T);
 
   return (R * T);
